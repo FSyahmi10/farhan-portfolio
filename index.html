@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Farhan Syahmi – UI/UX Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=JetBrains+Mono:wght@400&display=swap">
+<style>
+/* Layout: one 1100px column on a dark green-black page. Bold hero headline, full-width hero image, a ruled project list (title | summary | tag), then case studies as stacked text with justified image rows. */
+:root{
+  color-scheme:dark;
+  --bg:#0B1310; --ink:#F2F6F0; --soft:#C6D0C8; --muted:#8B988F; --line:#1F2D26; --surface:#111C17; --card:#E9ECEF;
+  --accent:#B7DC4A; --nav:#A3B99B; --hot:#B7DC4A; --signal:#B7DC4A;
+  --display:'Inter','Segoe UI',system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px;background:var(--bg)}
+body{background:var(--bg);color:var(--soft);font-family:var(--display);font-weight:400;font-size:14px;line-height:1.7;margin:0;overflow-x:hidden;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 110px}
+.wrap{max-width:1100px;margin-inline:auto}
+h1,h2,h3{font-family:var(--display);margin:0;color:var(--ink);text-wrap:balance}
+p{margin:0 0 1em;max-width:70ch}
+a{color:inherit}
+
+/* top bar */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+.top .wrap{display:flex;align-items:center;gap:14px;min-height:56px;flex-wrap:wrap;padding-block:8px}
+.logo{display:none}
+.brand{font-weight:700;font-size:15px;margin-right:auto;color:var(--ink)}
+.nav{display:flex;gap:4px 24px;flex-wrap:wrap;font-size:12.5px}
+.nav a{text-decoration:none;color:var(--nav);padding:4px 0}
+.nav a:hover,.nav a.on{color:var(--accent)}
+
+/* hide the decorative extras from earlier versions */
+.deco,.thumb,.pill,.flinks{display:none!important}
+.hero,#about,#contact{position:relative}
+
+/* hero */
+.hero{padding-block:64px 24px;display:grid;grid-template-columns:minmax(0,1fr);gap:20px}
+.hero h1{font-weight:700;font-size:clamp(38px,6vw,72px);line-height:1.04;letter-spacing:-0.035em;max-width:13em}
+.hero .intro{font-size:14.5px;line-height:1.75;color:var(--soft);max-width:62ch;margin:0}
+.hero > .fig{margin:14px 0 0;width:100%}
+
+/* project list */
+.index{display:flex;flex-direction:column;padding:36px 0 0;margin-top:12px}
+.index a{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,2.4fr) minmax(0,.8fr);gap:8px 32px;align-items:baseline;padding:22px 0;border-top:1px solid var(--line);text-decoration:none;min-width:0}
+.index a:last-child{border-bottom:1px solid var(--line)}
+.index b{font-weight:700;font-size:clamp(16px,1.7vw,20px);color:var(--ink);letter-spacing:-0.01em;line-height:1.25;transition:color .15s}
+.index .d{font-size:13px;color:var(--muted);line-height:1.6}
+.index .tag{font-size:12px;color:var(--muted);text-align:right}
+.index a:hover b{color:var(--accent)}
+
+/* case studies */
+.proj{padding-block:64px 0;border-top:1px solid var(--line);margin-top:72px}
+.rail{display:grid;gap:12px;margin-bottom:24px}
+.rail h2{font-size:clamp(28px,3.6vw,42px);font-weight:700;letter-spacing:-0.03em;line-height:1.1}
+.chips{display:flex;flex-wrap:wrap;gap:4px 24px;margin:0;padding:0;list-style:none}
+.chips li{font-size:12px;line-height:1.5;color:var(--muted);max-width:100%}
+.body{min-width:0;display:grid}
+.lead{font-size:14.5px!important;line-height:1.75!important;color:var(--soft);max-width:72ch!important;margin:0 0 4px!important}
+.sec{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;padding-block:30px 0}
+.sec > h3{font-size:16px;font-weight:700;line-height:1.4;letter-spacing:-0.005em}
+.sec > p,.sec > .outcome{margin:0;font-size:14px;line-height:1.75;color:var(--soft);max-width:72ch}
+.sec > .grid{margin-top:8px}
+.sec.pt{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:12px 40px;align-items:start}
+.sec.pt > h3{grid-column:1/-1}
+.sec.pt > .grid{grid-column:1;grid-row:2 / span 2;margin-top:0}
+.sec.pt > p{grid-column:2;order:0}
+.note{font-family:var(--mono);font-size:12px;color:var(--muted)!important}
+.outcome{padding:0 0 0 1.2em;margin:0;list-style:disc;display:grid;gap:6px}
+.outcome li{padding-left:2px;max-width:70ch}
+.outcome li::marker{color:var(--accent)}
+
+/* figures and image slots; the script sets widths so each row fills the column */
+.grid{display:flex;flex-wrap:wrap;gap:28px 20px;align-items:flex-start}
+.fig{margin:0;display:grid;gap:8px;align-content:start;min-width:0;flex:0 0 auto;width:calc(50% - 10px)}
+.grid.t .fig{width:calc(33.3% - 14px)}
+.fig.wide{width:100%}
+.fig figcaption{font-size:11.5px;color:var(--muted);max-width:62ch;line-height:1.6}
+.slot{position:relative;display:grid;place-items:center;width:100%;aspect-ratio:4/3;max-width:100%;padding:0;border:1px dashed #3E4F45;background:var(--surface);color:var(--muted);font:inherit;overflow:hidden;cursor:default;text-align:center}
+.fig.t .slot{aspect-ratio:3/4}
+.fig.s .slot{aspect-ratio:16/9}
+.fig.wide .slot{aspect-ratio:16/8}
+.slot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.slot.has{border:1px solid #33463B;background:var(--card)}
+.slot .hint{display:grid;gap:6px;padding:16px;font-size:12px;max-width:34ch;line-height:1.6}
+.slot .hint i{font-style:normal;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.slot .tools{position:absolute;right:8px;top:8px;display:none;gap:6px}
+.tools span{font:12px var(--mono);background:var(--ink);color:var(--bg);padding:4px 8px}
+body.editing .slot{cursor:pointer}
+body.editing .slot:hover{outline:2px solid var(--hot)}
+body.editing .slot.has:hover .tools{display:flex}
+body:not(.editing) .slot.has{cursor:zoom-in}
+
+/* about */
+#about .sec{padding-top:12px}
+
+/* contact */
+.cbody{display:grid;gap:4px}
+.cbody p{margin:0;font-size:14px;color:var(--soft)}
+.contact-line{font-size:clamp(18px,2.2vw,24px)!important;font-weight:700;color:var(--ink)!important;letter-spacing:-0.01em;margin-bottom:6px!important}
+footer{margin-top:72px;padding-block:22px;color:var(--muted);font-size:12px;border-top:1px solid var(--line)}
+
+/* editing */
+body.editing [data-e]{outline:1px dashed transparent;outline-offset:3px;cursor:text;transition:outline-color .15s}
+body.editing [data-e]:hover{outline-color:#4D6054}
+body.editing [data-e]:focus{outline:2px solid var(--hot);background:rgba(183,220,74,.1)}
+.bar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:40;display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;max-width:calc(100% - 32px);background:#F2F6F0;color:#0B1310;padding:8px 10px;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+.bar button{font:600 12.5px var(--display);border:1px solid #7C8A81;background:transparent;color:#0B1310;padding:6px 12px;cursor:pointer}
+.bar button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent)}
+.bar button:focus-visible,.slot:focus-visible,.nav a:focus-visible,.index a:focus-visible{outline:2px solid var(--hot);outline-offset:3px}
+.bar .st{font:12px var(--mono);opacity:.75;min-width:7ch}
+
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:60;background:rgba(6,10,8,.94);display:grid;place-items:center;padding:max(20px,env(safe-area-inset-top,0px)) max(20px,env(safe-area-inset-right,0px)) max(20px,env(safe-area-inset-bottom,0px)) max(20px,env(safe-area-inset-left,0px));cursor:zoom-out}
+.lb img{max-width:100%;max-height:100%;object-fit:contain;display:block}
+
+@media (max-width:820px){
+  .index a{grid-template-columns:minmax(0,1fr);gap:4px}
+  .index .tag{text-align:left}
+  .sec.pt{grid-template-columns:minmax(0,1fr)}
+  .sec.pt > .grid{grid-column:1;grid-row:auto}
+  .sec.pt > p{grid-column:1}
+  .proj{padding-block:48px 0;margin-top:48px}
+  .hero{padding-block:40px 16px}
+}
+@media (max-width:560px){
+  .grid{gap:22px 14px}
+}
+/* Agrimor website + Marketing: staggered columns, each image at its own height, captions underneath */
+#website .rail h2,#marketing .rail h2{font-family:'Source Serif 4',Georgia,'Times New Roman',serif;font-weight:400;font-size:clamp(28px,3.4vw,38px);letter-spacing:-0.01em;line-height:1.15}
+#website .lead,#marketing .lead{font-weight:600;color:var(--ink)}
+#marketing .sec > h3{color:#DDE8A8}
+#website .grid,#marketing .grid{display:block;columns:2 320px;column-gap:22px}
+#website .grid.t,#marketing .grid.t{columns:3 200px}
+#website .fig,#marketing .fig,#website .grid.t .fig,#marketing .grid.t .fig{width:100%;margin:0 0 26px;break-inside:avoid}
+@media (max-width:560px){
+  #website .grid,#marketing .grid{columns:1}
+  #website .grid.t,#marketing .grid.t{columns:2 130px;column-gap:14px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+
+img{max-width:100%}
+[hidden]{display:none!important}
+.slot.has{background:#E9ECEF}
+.slot{cursor:zoom-in}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <span class="logo" aria-hidden="true">F</span>
+  <div class="brand">Farhan Syahmi</div>
+  <nav class="nav" aria-label="Sections">
+    <a href="#agrimor">Agrimor.AI</a><a href="#geoeyez">GeoEyez</a><a href="#website">Website</a><a href="#marketing">Marketing</a><a href="#about">About</a><a href="#contact">Contact</a>
+  </nav>
+</div></header>
+
+<main id="page" class="wrap">
+  <section class="hero">
+    <span class="deco gridball hide-s" style="right:-150px;top:-10px" aria-hidden="true"></span>
+    <h1>Interfaces for fields, pipelines and plantations.</h1>
+    <p class="intro">I’m Farhan Syahmi, a UI/UX designer in Kuala Lumpur. For eight years I’ve worked in deep-tech and industrial B2B, turning drone, sensor and operations data into screens that teams can act on.</p>
+    <figure class="fig wide"><div class="slot has"><img src="img/01.jpg" alt="Agrimor.AI dark-mode 3D map showing plantation production as a green block, with weighbridge analytics on the right" loading="lazy"></div>
+      <figcaption>Agrimor.AI: production and weighbridge analytics on a 3D plantation map.</figcaption>
+    </figure>
+    <nav class="index" aria-label="Projects">
+      <span class="deco ring hide-s" style="--s:78px;left:-70px;top:-10px" aria-hidden="true"></span>
+      <svg class="deco zig hide-s" style="right:0;top:62px" viewBox="0 0 110 28" fill="none" aria-hidden="true"><defs><linearGradient id="zg" x1="0" x2="1"><stop offset="0" stop-color="#FF4D6D"/><stop offset=".5" stop-color="#FF9A3C"/><stop offset="1" stop-color="#3DDC97"/></linearGradient></defs><polyline points="1,26 14,3 27,26 40,3 53,26 66,3 79,26 92,3 105,26" stroke="url(#zg)" stroke-width="2" stroke-linejoin="miter"/></svg>
+      <a href="#agrimor"><b>Agrimor.AI</b><span class="d">Precision agriculture platform with AI crop health analysis, on web and mobile. Led UI/UX and development with a team of 7.</span><span class="tag">2021–2026</span><span class="pill">View case study →</span></a>
+      <a href="#geoeyez"><b>GeoEyez</b><span class="d">Pipeline corridor monitoring dashboard, from wireframe to final screens.</span><span class="tag">Web dashboard</span><span class="pill">View case study →</span></a>
+      <a href="#website"><b>Agrimor website</b><span class="d">Landing, product and service pages for Agrimor.AI and its products.</span><span class="tag">Web design</span><span class="pill">View case study →</span></a>
+      <a href="#marketing"><b>Marketing & packaging</b><span class="d">BioLegion packaging, trifold and flyers, plus NutroPro, ALPHA and Aerodyne service material.</span><span class="tag">2024–2026</span><span class="pill">View case study →</span></a>
+      <span class="deco ring hide-s" style="--s:92px;right:-40px;top:46%" aria-hidden="true"></span>
+    </nav>
+  </section>
+
+  <!-- AGRIMOR.AI -->
+  <section class="proj" id="agrimor">
+    <div class="rail">
+      <h2>Agrimor.AI</h2>
+      <ul class="chips">
+        <li>Lead UI/UX and development</li><li>Aerodyne Geospatial</li><li>2021–2026</li><li>Web and mobile</li><li>Team of 7: 3 designers, 4 DevOps engineers</li><li>8 releases</li>
+      </ul>
+    </div>
+    <div class="body">
+      <p class="lead">Agrimor.AI is a web and mobile precision agriculture platform that uses AI to analyse crop health and brings plantation and farm data into one place: maps, production, harvest, upkeep, weighbridge and expenditure. I led its UI/UX design, prototyping and end-to-end development, managed a team of 7 (3 designers and 4 DevOps engineers) across 8 releases, and worked with the Chief Product Officer on roadmap and feature design.</p>
+
+      <div class="sec">
+        <h3>Context</h3>
+        <p>Plantation teams track upkeep, harvest, weighbridge and spending across many blocks. Agrimor.AI puts all of that on one map-based platform for estate managers, supervisors and field staff, so they can see what is happening in each block and act on it.</p>
+      </div>
+
+      <div class="sec">
+        <h3>Analysing crop health</h3>
+        <p>Agrimor.AI turns data from drones, sensors and smart devices into a picture of how crops are doing, block by block. The AI analysis covers plant health, tree stress and vigour, chlorophyll, water uptake, tree count and crown area, crop coverage and vacant points, soil content and erosion, and slope and elevation. Teams use the predicted trends to make better decisions about water, labour and nutrients.</p>
+        <p>The same platform runs daily operations: harvest, upkeep, task tracking, weighbridge, attendance, logistics and expenditure. My job was to make all of it readable on one map, so a manager can move from a health problem to the task that fixes it.</p>
+      </div>
+
+      <div class="sec">
+        <h3>Designing around the map</h3>
+        <p>The map is the main surface. Estates and blocks sit in a tree on the left, analytics on the right, and a month timeline underneath lets people step through time without leaving the map.</p>
+        <div class="grid">
+          <figure class="fig"><div class="slot has"><img src="img/02.jpg" alt="Light-theme map with an upkeep work order popup showing a photo of a tractor trailer" loading="lazy"></div><figcaption>Upkeep tracking. Tapping a block opens the work order with its field photo.</figcaption></figure>
+          <figure class="fig"><div class="slot has"><img src="img/03.jpg" alt="Light-theme map with block boundaries and upkeep analytics panel" loading="lazy"></div><figcaption>The same view without the popup: block boundaries, activity totals and upkeep details.</figcaption></figure>
+        </div>
+      </div>
+
+      <div class="sec">
+        <h3>A dark theme for the control room</h3>
+        <p>The dark interface uses a lime accent on charcoal so status and totals stand out on the map, including on a wall display.</p>
+        <div class="grid">
+          <figure class="fig wide"><div class="slot has"><img src="img/04.jpg" alt="Add Fieldnote form with category picker, file upload and participants, next to a feed of field notes" loading="lazy"></div><figcaption>Field notes: log an issue with a category, a photo and the people who need to see it.</figcaption></figure>
+        </div>
+      </div>
+
+      <div class="sec pt">
+        <h3>On the phone</h3>
+        <div class="grid">
+          <figure class="fig wide"><div class="slot has"><img src="img/05.jpg" alt="Agrimor.AI mobile screens: irrigation controls, social feed and AI assistant" loading="lazy"></div><figcaption>Irrigation controls, community feed and an AI assistant.</figcaption></figure>
+        </div>
+        <p>The mobile app extends the platform to the field: switch irrigation zones, post crop issues to a community feed and ask questions of farm data.</p>
+        <p>I kept the mobile app to what people need in the field: irrigation switches, a feed for crop issues and an assistant for questions about farm data. Heavier analytics stay on the web version.</p>
+      </div>
+
+      <div class="sec">
+        <h3>More web screens</h3>
+        <p>The same system carries across products: crop management and estate analytics on the web, and a pond monitor.</p>
+        <div class="grid">
+          <figure class="fig"><div class="slot has"><img src="img/06.jpg" alt="Crop management view with 3D bars on a satellite map and a calendar panel" loading="lazy"></div><figcaption>Crop management: 3D bars on the map with a calendar alongside.</figcaption></figure>
+          <figure class="fig"><div class="slot has"><img src="img/07.jpg" alt="Estate analytics view with satellite map and analytics panel" loading="lazy"></div><figcaption>Estate analytics: satellite map with a data panel.</figcaption></figure>
+          <figure class="fig wide"><div class="slot has"><img src="img/08.jpg" alt="Monitoring dashboard with water temperature, dissolved oxygen and pH, and feeder and aerator controls" loading="lazy"></div><figcaption>Pond monitoring: water temperature, dissolved oxygen and pH, with feeder and aerator controls.</figcaption></figure>
+        </div>
+      </div>
+
+      <div class="sec">
+        <h3>Flows and logic</h3>
+        <p>Before screens, I mapped the journeys and the system logic behind them.</p>
+        <div class="grid">
+          <figure class="fig"><div class="slot has"><img src="img/09.jpg" alt="Farmland Management user flow from onboarding to dashboard and reports" loading="lazy"></div><figcaption>Farmland Management: onboarding, dashboard, map and report flow.</figcaption></figure>
+          <figure class="fig"><div class="slot has"><img src="img/10.jpg" alt="Flowchart of nutrient mixing logic for NFT and fertigation" loading="lazy"></div><figcaption>Nutrient mixing logic for NFT and fertigation systems.</figcaption></figure>
+        </div>
+      </div>
+
+      <div class="sec">
+        <h3>A shared design system</h3>
+        <p>I built a scalable UI component library and design system, now used across 3 products, so they look and behave consistently.</p>
+      </div>
+
+      <div class="sec">
+        <h3>Outcome</h3>
+        <ul class="outcome">
+          <li>Redesigning the core user journeys cut task completion time from 3 hours to 15 minutes.</li>
+          <li>Adoption grew 40% across 15+ enterprise accounts.</li>
+          <li>Client operational efficiency rose 35%, measured by tasks completed per user per week.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- GEOEYEZ -->
+  <section class="proj" id="geoeyez">
+    <div class="rail">
+      <h2>GeoEyez</h2>
+      <ul class="chips"><li>UI/UX design</li><li>Web dashboard</li><li>Pipeline monitoring</li></ul>
+    </div>
+    <div class="body">
+      <p class="lead">GeoEyez helps teams monitor the ground along a pipeline. It shows where signs of distress, such as erosion, leaks and water ponding, appear by kilometre point, and what the AI detected at each site.</p>
+
+      <div class="sec">
+        <h3>Context</h3>
+        <p>Pipeline teams need to find and rank ground problems along a long corridor. GeoEyez gives them a map, a severity score by kilometre point and an AI-assisted view of each site.</p>
+      </div>
+
+      <div class="sec">
+        <h3>From wireframe to final</h3>
+        <p>I started with low-fidelity layouts for a site severity score and a site analyzer, then reworked them into the dashboard below.</p>
+        <div class="grid"><figure class="fig wide"><div class="slot has"><img src="img/11.jpg" alt="Low-fidelity wireframes for Site Severity score and Site Analyzer" loading="lazy"></div><figcaption>Early wireframes.</figcaption></figure></div>
+      </div>
+
+      <div class="sec">
+        <h3>The dashboard</h3>
+        <p>One screen answers three questions: where is the problem (map), how bad is it (severity by KP) and what kind is it (sign of distress statistics).</p>
+        <div class="grid">
+          <figure class="fig wide"><div class="slot has"><img src="img/12.jpg" alt="GeoEyez dashboard with pipeline map, severity by KP chart, KP log table and sign of distress donut chart" loading="lazy"></div><figcaption>Main dashboard: pipeline map, severity by KP, KP log and distress statistics.</figcaption></figure>
+          <figure class="fig"><div class="slot has"><img src="img/13.jpg" alt="Site information screen with rasters, vectors and AI detection clusters" loading="lazy"></div><figcaption>Site analyzer: map layers, risk score and AI detection clusters.</figcaption></figure>
+          <figure class="fig"><div class="slot has"><img src="img/14.jpg" alt="KP 140 detail screen with date picker, risk scoring and detection table" loading="lazy"></div><figcaption>KP detail: pick a survey date, read the risk score and the detection breakdown.</figcaption></figure>
+        </div>
+        <p class="note">Data shown is sample data.</p>
+      </div>
+
+      <div class="sec">
+        <h3>Decisions and outcome</h3>
+        <p>Severity by KP comes first because it tells teams which sites need attention. The detail screen then lets them pick a survey date and compare what the AI detected, so they can judge whether a site is getting better or worse.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WEBSITE -->
+  <section class="proj" id="website">
+    <div class="rail">
+      <h2>Agrimor website</h2>
+      <ul class="chips"><li>Web design</li><li>Agrimor.AI and Agrimor products</li></ul>
+    </div>
+    <div class="body">
+      <p class="lead">Marketing site pages that introduce Agrimor.AI, the NutriPro and BioLegion products, and the drone services. Each page is shown in full; tap one to enlarge it.</p>
+      <div class="grid t">
+        <figure class="fig t"><div class="slot has"><img src="img/15.jpg" alt="Agrimor landing page design" loading="lazy"></div><figcaption>Landing page.</figcaption></figure>
+        <figure class="fig t"><div class="slot has"><img src="img/16.jpg" alt="Agrimor product page design with NutriPro and BioLegion" loading="lazy"></div><figcaption>Product page.</figcaption></figure>
+        <figure class="fig t"><div class="slot has"><img src="img/17.jpg" alt="Agrimor additional services page design with drone imagery" loading="lazy"></div><figcaption>Service page.</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARKETING -->
+  <section class="proj" id="marketing">
+    <div class="rail">
+      <h2>Marketing & packaging</h2>
+      <ul class="chips"><li>Design and layout</li><li>Agrimor and Aerodyne</li></ul>
+    </div>
+    <div class="body">
+      <p class="lead">Alongside product design, I made the brand and sales material for Agrimor’s products.</p>
+
+      <div class="sec">
+        <h3>BioLegion</h3>
+        <p>Packaging and print for an organic plant symbiotic. The camouflage and stencil type frame the product as a crop-protection squad, and the same idea runs from the bottle to the brochure.</p>
+        <div class="grid">
+          <figure class="fig"><div class="slot has"><img src="img/18.jpg" alt="BioLegion OPS 60 bottle with camouflage and orange label" loading="lazy"></div><figcaption>OPS 60 bottle mockup.</figcaption></figure>
+          <figure class="fig"><div class="slot has"><img src="img/19.jpg" alt="Flat BioLegion label layout with mixing guide, composition table and storage details" loading="lazy"></div><figcaption>Flat label: mixing guide, composition, storage and manufacturer details.</figcaption></figure>
+          <figure class="fig"><div class="slot has"><img src="img/20.jpg" alt="BioLegion trifold brochure, outside panels" loading="lazy"></div><figcaption>Trifold brochure, outside.</figcaption></figure>
+          <figure class="fig"><div class="slot has"><img src="img/21.jpg" alt="BioLegion trifold brochure, inside panels with chart and mascot" loading="lazy"></div><figcaption>Trifold brochure, inside.</figcaption></figure>
+        </div>
+      </div>
+
+      <div class="sec">
+        <h3>Roll-up banners</h3>
+        <div class="grid t">
+          <figure class="fig t"><div class="slot has"><img src="img/22.jpg" alt="Agrimor roll-up banner: Grow Smarter, Harvest Better" loading="lazy"></div><figcaption>Grow Smarter, Harvest Better.</figcaption></figure>
+          <figure class="fig t"><div class="slot has"><img src="img/23.jpg" alt="Agrimor roll-up banner: Sustainable Farming Solutions" loading="lazy"></div><figcaption>Sustainable Farming Solutions.</figcaption></figure>
+          <figure class="fig t"><div class="slot has"><img src="img/24.jpg" alt="Amelo juice roll-up banner" loading="lazy"></div><figcaption>Amelo juice banner.</figcaption></figure>
+        </div>
+      </div>
+
+      <div class="sec">
+        <h3>Agrimor.AI brochure</h3>
+        <div class="grid t">
+          <figure class="fig t"><div class="slot has"><img src="img/25.jpg" alt="Agrimor.AI overview brochure page" loading="lazy"></div><figcaption>Overview: Transforming Agriculture through Digital Connectivity.</figcaption></figure>
+          <figure class="fig t"><div class="slot has"><img src="img/26.jpg" alt="Agrimor.AI features page" loading="lazy"></div><figcaption>Agrimor.AI features and platform.</figcaption></figure>
+          <figure class="fig t"><div class="slot has"><img src="img/27.jpg" alt="Agrimor.AI mobile and community page" loading="lazy"></div><figcaption>Mobile and community page.</figcaption></figure>
+        </div>
+      </div>
+
+      <div class="sec">
+        <h3>Product pages</h3>
+        <div class="grid t">
+          <figure class="fig t"><div class="slot has"><img src="img/28.jpg" alt="NutroPro product page" loading="lazy"></div><figcaption>NutroPro nutrient system.</figcaption></figure>
+          <figure class="fig t"><div class="slot has"><img src="img/29.jpg" alt="NutriPro specifications page" loading="lazy"></div><figcaption>NutriPro how it works and specifications.</figcaption></figure>
+          <figure class="fig t"><div class="slot has"><img src="img/30.jpg" alt="Agrimor Biochem Nutrient System product page" loading="lazy"></div><figcaption>Agrimor Biochem Nutrient System.</figcaption></figure>
+          <figure class="fig t"><div class="slot has"><img src="img/31.jpg" alt="ALPHA drone and geospatial intelligence platform infographic" loading="lazy"></div><figcaption>ALPHA drone intelligence platform.</figcaption></figure>
+        </div>
+      </div>
+
+      <div class="sec">
+        <h3>Aerodyne service and product flyers</h3>
+        <div class="grid t">
+          <figure class="fig t"><div class="slot has"><img src="img/32.jpg" alt="Fields of Precision crop protection services flyer" loading="lazy"></div><figcaption>Fields of Precision: crop protection, mapping, monitoring and data platform services.</figcaption></figure>
+          <figure class="fig t"><div class="slot has"><img src="img/33.jpg" alt="HVA high volume application flyer with drone" loading="lazy"></div><figcaption>High volume application flyer.</figcaption></figure>
+          <figure class="fig t"><div class="slot has"><img src="img/34.jpg" alt="High volume spraying flyer with Agrimor.AI integration" loading="lazy"></div><figcaption>High volume spraying, with Agrimor.AI integration.</figcaption></figure>
+          <figure class="fig t"><div class="slot has"><img src="img/35.jpg" alt="BioLegion and drone spraying flyer" loading="lazy"></div><figcaption>BioLegion with drone spraying.</figcaption></figure>
+          <figure class="fig t"><div class="slot has"><img src="img/36.jpg" alt="BioLegion brochure in Bahasa Malaysia" loading="lazy"></div><figcaption>BioLegion brochure in Bahasa Malaysia.</figcaption></figure>
+        </div>
+      </div>
+
+      <div class="sec">
+        <h3>DRONOS slides</h3>
+        <div class="grid">
+          <figure class="fig s"><div class="slot has"><img src="img/37.jpg" alt="DRONOS slide on better decisions from inspection data" loading="lazy"></div><figcaption>Inspection data to AI analysis and action.</figcaption></figure>
+          <figure class="fig s"><div class="slot has"><img src="img/38.jpg" alt="DRONOS slide on optimising cost" loading="lazy"></div><figcaption>Cost optimisation slide.</figcaption></figure>
+          <figure class="fig s"><div class="slot has"><img src="img/39.jpg" alt="DRONOS slide on smarter solutions" loading="lazy"></div><figcaption>Smarter solutions slide.</figcaption></figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="proj" id="about">
+    <svg class="deco zig hide-s" style="left:-8px;bottom:-30px" viewBox="0 0 110 28" fill="none" aria-hidden="true"><polyline points="1,26 14,3 27,26 40,3 53,26 66,3 79,26 92,3 105,26" stroke="url(#zg)" stroke-width="2"/></svg>
+    <div class="rail"><h2>About</h2></div>
+    <div class="body">
+      <p class="lead">I started as a project engineer at Aerodyne Geospatial in 2018, then led design and development of Agrimor.AI from 2021 to 2026. Today my design work stays tied to real audiences and business goals.</p>
+      <div class="sec">
+        <p>I studied Mass Communication (Advertising) at Taylor’s University. I work in English and Bahasa Malaysia.</p>
+        <p>Tools: Figma and Final Cut Pro.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="proj" id="contact">
+    <div class="rail"><h2>Contact</h2></div>
+    <div class="cbody">
+      <p class="contact-line">your.email@example.com</p>
+      <p>LinkedIn: add your profile link here</p>
+    </div>
+    <nav class="flinks" aria-label="Footer">
+      <a href="#page">Home</a><a href="#agrimor">Work</a><a href="#about">About</a><a href="#contact">Contact</a>
+    </nav>
+  </section>
+
+  <footer>© 2026 Farhan Syahmi</footer>
+</main>
+<script>
+(function(){
+  var GAP=20, raf=0, exts=['jpg','jpeg','png','webp'];
+  var figs=[].slice.call(document.querySelectorAll('.fig'));
+  figs.forEach(function(f){
+    var slot=f.querySelector('.slot'), im=slot&&slot.querySelector('img'); if(!im) return;
+    var tries=1;
+    im.addEventListener('error',function(){
+      // try other common extensions if .jpg is missing
+      if(tries<exts.length){im.src=im.getAttribute('src').replace(/\.[a-z]+$/,'.'+exts[tries++])}
+    });
+    function done(){
+      if(im.naturalWidth&&im.naturalHeight){
+        slot.style.aspectRatio=im.naturalWidth+' / '+im.naturalHeight;
+        f._r=im.naturalWidth/im.naturalHeight;
+        layoutAll();
+      }
+    }
+    if(im.complete) done(); else im.addEventListener('load',done);
+    slot.addEventListener('click',function(){lightbox(im.currentSrc||im.src)});
+  });
+  function lightbox(src){
+    var d=document.createElement('div'); d.className='lb'; d.setAttribute('role','dialog'); d.setAttribute('aria-label','Enlarged image');
+    var i=new Image(); i.src=src; d.appendChild(i);
+    function close(){d.remove(); document.removeEventListener('keydown',k)}
+    function k(e){if(e.key==='Escape') close()}
+    d.addEventListener('click',close); document.addEventListener('keydown',k); document.body.appendChild(d);
+  }
+  function ratioOf(f){
+    if(f._r) return f._r;
+    if(f.classList.contains('wide')) return 2;
+    if(f.classList.contains('t')) return 0.75;
+    if(f.classList.contains('s')) return 16/9;
+    return 4/3;
+  }
+  function layoutGrid(g){
+    if(g.closest('#website,#marketing')){[].slice.call(g.children).forEach(function(f){f.style.width=''}); return}
+    var W=g.clientWidth; if(!W) return;
+    var items=[].slice.call(g.children).filter(function(x){return x.classList.contains('fig')});
+    var isT=g.classList.contains('t'), small=W<560;
+    var maxPer=small?(isT?2:1):99;
+    var H=small?(isT?((W-GAP)/2)/0.75:W):(isT?340:330);
+    function widthAt(list,h){var s=0; list.forEach(function(x){s+=ratioOf(x)*h}); return s+GAP*(list.length-1)}
+    function fill(list){var s=0; list.forEach(function(x){s+=ratioOf(x)}); return (W-GAP*(list.length-1))/s}
+    var rows=[], cur=[];
+    items.forEach(function(f){
+      var r=ratioOf(f), forced=(f.classList.contains('wide')&&r>=1.6)||r>=2.2;
+      if(forced && !small){ if(cur.length){rows.push(cur); cur=[]} rows.push({one:f}); return; }
+      if(cur.length>=maxPer){rows.push(cur); cur=[]}
+      if(!cur.length){cur.push(f); return}
+      var withIt=cur.concat([f]);
+      if(widthAt(withIt,H)<=W){cur=withIt; return}
+      var sNo=fill(cur)/H, sYes=fill(withIt)/H;
+      if(Math.abs(Math.log(sYes))<Math.abs(Math.log(sNo))){rows.push(withIt); cur=[]} else {rows.push(cur); cur=[f]}
+    });
+    if(cur.length) rows.push(cur);
+    rows.forEach(function(row,i){
+      if(row.one){row.one.style.width=W+'px'; return}
+      var last=(i===rows.length-1), h=fill(row);
+      if(last && widthAt(row,H)<W*0.6) h=H;
+      row.forEach(function(f){f.style.width=Math.floor(ratioOf(f)*h)+'px'});
+    });
+  }
+  function layoutAll(){
+    cancelAnimationFrame(raf);
+    raf=requestAnimationFrame(function(){[].slice.call(document.querySelectorAll('.grid')).forEach(layoutGrid)});
+  }
+  try{new ResizeObserver(layoutAll).observe(document.getElementById('page'))}catch(e){window.addEventListener('resize',layoutAll)}
+  layoutAll();
+  try{document.fonts.ready.then(layoutAll)}catch(e){}
+
+  // highlight the current section in the nav
+  try{
+    var links=[].slice.call(document.querySelectorAll('.nav a')), secs=links.map(function(a){return document.querySelector(a.getAttribute('href'))});
+    var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){links.forEach(function(a){a.classList.toggle('on',document.querySelector(a.getAttribute('href'))===x.target)})}})},{rootMargin:'-40% 0px -55% 0px'});
+    secs.forEach(function(s){if(s) io.observe(s)});
+  }catch(e){}
+})();
+</script>
+</body>
+</html>
